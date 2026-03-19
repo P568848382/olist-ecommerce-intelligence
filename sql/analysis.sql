@@ -113,6 +113,11 @@ order by month_date;
 	"07-18"			1039783.58				1020381.90			  	1.90
 	"08-18"			996973.51				1039783.58			   -4.12
 	"09-18"			166.46					996973.51			   -99.98
+-- Anomaly 1 — Dec 2016 revenue was only $19.62
+-- Oct 2016 had $51K revenue, then Dec 2016 had just $19.62. That -99.96% drop is not a business collapse — November 2016 is simply missing 
+--from the dataset. The data collection was incomplete for that month.
+--Same pattern at the end — Sep 2018 shows $166 because the dataset was cut off mid-month. 
+--This is why Query 1.1 shows the last order date as Sep 3, 2018.
 
 --Section 2:-Customer Behaviour Analysis
 --Revenue by State.
@@ -274,7 +279,7 @@ order by pareto_distribution;
 --Section 4-Delivery And Logistics:-
 --Late Delivery Rate by State
 -- ============================================================
--- QUERY 4.1: Late delivery rate by customer state
+	-- QUERY 4.1: Late delivery rate by customer state
 -- Business Question: Which states have the worst delivery performance?
 -- Technique: CASE WHEN inside AVG (boolean aggregation)
 -- ============================================================
@@ -314,6 +319,9 @@ limit 15;
 	"MS"				701				 68					9.70			-11.05
 	"PE"				1593			 153				9.60			-13.29
 	"RN"				474				 44					9.28			-13.65
+--Look at our late delivery query — avg_delay_days shows -8.71 for AL, -9.57 for MA etc. 
+--Negative means on average orders arrive earlier than estimated — even in states with high late delivery rates. 
+--This is because the estimated delivery date is set very conservatively.
 
 --Does Late delivery hurt review score?
 -- ============================================================
@@ -395,7 +403,7 @@ select
 from seller_metrics
 order by total_revenue desc
 limit 20;
---o/p:-i only show top 5 rows only
+--o/p:-i only show top 5 rows only.
 "seller_id"							"seller_state"		"total_orders"	"total_revenue"	"avg_review_score"	"late_deliveries"	"revenue_rank"	"review_rank"	"revenue_quartile"
 "4869f7a5dfa277a7dca6462dcf3b52b2"		"SP"				1131			229237.63			4.13				121				1				1634			1
 "53243585a1d6dc2643021fd1853d8905"		"BA"				358				222776.05			4.08				12				2				1716			1
@@ -403,6 +411,61 @@ limit 20;
 "fa1c13f2614d7b5c4749cbc52fecda94"		"SP"				584				192842.13			4.34				53				4				1229			1
 "7c67e1448b00f6e969d365cea6b010ab"		"SP"				982				189417.67			3.35				121				5				2582			1
 
+--Section 6: The Executive Summary View
+-- ============================================================
+-- QUERY 6.1: Executive summary — one query to rule them all
+-- Business Question: Give me the health of this business in one view
+-- Technique: Subqueries as columns, everything in one SELECT
+-- ============================================================
+select
+	(select count(distinct order_id)
+	 from orders
+	 where order_status not in ('canceled','unavailable')
+	 ) as total_orders,
+	 (select round(sum(oi.price + oi.freight_value)::numeric,2)
+	 from order_items oi
+	 join orders o
+	 on oi.order_id=o.order_id
+	 where o.order_status not in ('canceled','unavailable')
+	 ) as total_revenue,
+	 (select round(avg(review_score)::numeric,2)
+	 from order_reviews
+	 ) as avg_review_score,
+	 (select round(avg(case when order_delivered_customer_date::date > order_estimated_delivery_date::date then 1.0 else 0.0 end)*100,2)
+	 from orders
+	 where order_status='delivered'
+	 ) as late_delivery_pct,
+	 (select count(distinct seller_id)
+	 from order_items
+	 ) as active_sellers,
+	 (select count(distinct product_id)
+	 from order_items 
+	 ) as active_products;
+-- o/p:-
+"total_orders"	"total_revenue"	"avg_review_score"	"late_delivery_pct"	"active_sellers"	"active_products"
+	98207		  15735527.03		  4.09					6.77			  3095				  32951
 
+-- ============================================================
+-- QUERY 6.2: Customer-level summary for RFM (feeds Phase 4)
+-- Business Question: What does each customer's purchase history look like?
+-- ============================================================
+select
+	c.customer_unique_id,
+	count(distinct o.order_id) as frequency,
+	max(o.order_purchase_timestamp::date) as last_order_date,
+	min(o.order_purchase_timestamp::date) as first_order_date,
+	round(sum(oi.price+oi.freight_value)::numeric,2) as monetary_value,
+	round(avg(r.review_score)::numeric,2) as avg_review_score,
+	max('2018-09-03'::date - o.order_purchase_timestamp::date) as recency_days
+from orders o
+join customers c 
+on o.customer_id=c.customer_id
+join order_items oi
+on o.order_id=oi.order_id
+left join order_reviews r
+on o.order_id=r.order_id
+where o.order_status not in ('canceled','unavailable')
+group by c.customer_unique_id
+order by monetary_value desc;
 
 	

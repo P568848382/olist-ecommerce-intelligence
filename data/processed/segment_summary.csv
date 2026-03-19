@@ -1,0 +1,8 @@
+segment,num_customers,avg_recency,avg_frequency,avg_monetary,total_revenue,pct_customers,pct_revenue
+At Risk,22780,400.59,1.05,168.37,3835558.6,23.87,24.21
+Loyal Customers,14495,158.45,1.06,207.37,3005838.71,15.19,18.97
+Big Spenders,8786,342.25,1.0,301.78,2651434.91,9.21,16.74
+New Customers,15283,95.85,1.0,164.32,2511239.76,16.02,15.85
+Champions,6627,96.26,1.18,314.78,2086075.98,6.95,13.17
+Occasional Buyers,20993,195.93,1.01,66.36,1393131.32,22.0,8.79
+Lost,6456,402.56,1.0,55.8,360273.96,6.77,2.27
