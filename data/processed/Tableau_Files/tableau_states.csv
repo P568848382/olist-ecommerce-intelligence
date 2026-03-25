@@ -1,0 +1,28 @@
+customer_state,total_revenue,total_orders,avg_order_value,late_delivery_pct,avg_review_score,country,state_name
+AC,19575.33,80,215.11,3.0,4.13,Brazil,Acre
+AL,94172.49,397,220.54,21.0,3.83,Brazil,Alagoas
+AM,27585.47,145,169.24,3.0,4.11,Brazil,Amazonas
+AP,16141.81,67,199.28,4.0,4.26,Brazil,Amapá
+BA,591137.81,3256,160.5,12.0,3.86,Brazil,Bahia
+CE,266436.77,1279,186.84,14.0,3.88,Brazil,Ceará
+DF,346123.35,2080,146.97,6.0,4.06,Brazil,Distrito Federal
+ES,317657.93,1995,142.77,11.0,4.02,Brazil,Espírito Santo
+GO,334212.35,1957,146.78,6.0,4.04,Brazil,Goiás
+MA,147803.55,717,184.75,18.0,3.76,Brazil,Maranhão
+MG,1818891.67,11354,140.82,4.0,4.12,Brazil,Minas Gerais
+MS,134367.55,701,165.68,9.0,4.06,Brazil,Mato Grosso do Sul
+MT,181224.42,886,174.76,6.0,4.01,Brazil,Mato Grosso
+PA,212023.57,946,201.16,11.0,3.84,Brazil,Pará
+PB,137838.55,517,235.22,11.0,4.04,Brazil,Paraíba
+PE,308972.05,1593,176.96,9.0,4.02,Brazil,Pernambuco
+PI,105178.19,476,201.11,14.0,3.96,Brazil,Piauí
+PR,781708.8,4923,138.38,4.0,4.15,Brazil,Paraná
+RJ,2055401.57,12350,145.33,12.0,3.87,Brazil,Rio de Janeiro
+RN,100714.78,474,193.31,9.0,4.11,Brazil,Rio Grande do Norte
+RO,56966.0,243,208.67,4.0,4.07,Brazil,Rondônia
+RR,9039.52,41,196.51,11.0,3.89,Brazil,Roraima
+RS,861472.79,5345,140.44,6.0,4.09,Brazil,Rio Grande do Sul
+SC,595127.78,3546,145.26,8.0,4.05,Brazil,Santa Catarina
+SE,70289.13,335,187.44,16.0,3.9,Brazil,Sergipe
+SP,5769703.15,40501,124.22,4.0,4.18,Brazil,São Paulo
+TO,60007.37,274,193.57,10.0,4.16,Brazil,Tocantins
