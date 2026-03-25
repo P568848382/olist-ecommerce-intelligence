@@ -1,6 +1,18 @@
 # Olist E-Commerce Customer Intelligence Platform
 ### End-to-End Data Analytics Project | Python · PostgreSQL · Tableau · Machine Learning
+“This project is an end-to-end analytics pipeline built on Olist e-commerce data.
+I started with data ingestion, loading 9 raw CSV datasets into PostgreSQL using Python and SQLAlchemy.
+Then I performed ETL — cleaning the data, handling missing values, and engineering features like delivery delay, repeat purchase indicators, and revenue metrics.
+I designed a relational schema and built a master fact table for efficient analysis.
+Using SQL, I performed business analysis including revenue trends, customer behavior, Pareto analysis, and delivery performance using window functions like LAG and RANK.
+Next, I applied RFM segmentation to classify customers and performed cohort analysis to evaluate retention.
+I also built a churn prediction model using Logistic Regression and Random Forest, handling class imbalance using weighted techniques.
+Finally, I created interactive Tableau dashboards to visualize insights such as customer segments, geographic revenue, and delivery impact on satisfaction, leading to actionable business recommendations.”
 
+PROBLEM:-The problem was low customer retention.
+APPROACH:-I approached it using RFM segmentation and churn modeling.
+TOOLS:-I used Python, SQL, and Tableau.
+IMPACT:-The impact was identifying high-risk customers with significant revenue at stake.
 > **Live Dashboards →** 
 [Executive Overview](<https://public.tableau.com/views/Olist-Ecommerce-Intelligence-ExcecutiveOverview-2016to2018-PradeepKumar/OlistE-CommerceExecutiveOverview20162018?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link>) |
 [Geographic Analysis](<https://public.tableau.com/views/Olist-Ecommerce-Intelligence-PradeepKumar-Geographicrevenueanddeliveryanalysis/GeographicRevenueDeliveryAnalysis?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link>) | 
